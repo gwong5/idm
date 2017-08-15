@@ -1,5 +1,6 @@
 import {connect} from 'src/db'
 import {findContactByEmails, addIdmToCrm} from 'src/server/actions/crm'
+import createMember from 'src/server/actions/createMember'
 
 const r = connect()
 
@@ -18,7 +19,8 @@ export async function processUserCreated(idmUser) {
       .get(idmUser.id)
       .update({hubspotContactId: contactVid})
 
-    addIdmToCrm(idmUser.id, contactVid)
+    await addIdmToCrm(idmUser.id, contactVid)
+    await createMember(idmUser.id, idmUser.inviteCode)
   } catch (error) {
     throw new Error(`Attempt to sync user data with CRM for ${idmUser.name} failed.`)
   }
