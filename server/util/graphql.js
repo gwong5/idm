@@ -11,8 +11,8 @@ export default function graphQLFetcher(baseURL, lgJWT = serverToServerJWT()) {
     const options = {
       method: 'post',
       headers: {
-        Authorization: `Bearer ${lgJWT}`,
-        Origin: config.server.baseURL,
+        'Authorization': `Bearer ${lgJWT}`,
+        'Origin': config.server.baseURL,
         'Content-Type': 'application/json',
         'LearnersGuild-Skip-Update-User-Middleware': 1,
       },
